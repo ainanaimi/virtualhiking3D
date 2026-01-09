@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Hiking Experience</title>
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="CSS New.css">
+
+  <!-- Additional CSS for Checkpoint / Menu -->
+  <link rel="stylesheet" href="menu.css">
+</head>
+<body>
+
+  <!-- ===== Navigation Bar ===== -->
+  <header>
+    <div class="logo">
+      <img src="virtual-reality.png" alt="VR Icon" class="logo-icon">
+      VirtAZ
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#home" id="nav-home">Home</a></li>
+        <li><a href="#about" id="nav-about">About</a></li>
+        <li><a href="#vr" id="nav-vr">VR Experience</a></li>
+        <li><a href="#contact" id="nav-contact">Contact</a></li>
+        <li><a href="#" id="lang-toggle">BM</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== Hero Section (Video Background) ===== -->
+  <section id="home" class="hero">
+    <video autoplay muted loop id="bg-video">
+      <source src="3D cartoon.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+      <h1 id="hero-title">Virtual Hiking Experience :</h1>
+      <h2 id="hero-subtitle">Discover Labuan Trails in VR</h2>
+      <p id="hero-desc">
+        Step into the 3D world of Labuan’s Chimney Trail through an immersive VR experience.  
+        Explore nature and heritage using VR technology!
+      </p>
+
+      <!-- Start Button -->
+      <a href="menu checkpoint.html" class="start-button" onclick="stopVoiceover()">
+        <img src="play.png" alt="Start" class="start-icon">
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT SECTION ===== -->
+  <section id="about" class="about">
+    <h2 id="about-title">About Project</h2>
+    <p id="about-p1">
+      Step into a new world of adventure with 
+      <strong>Virtual Hiking Experience: Discover Labuan Chimney Trails in VR.</strong>
+      It is a journey that brings the beauty, history, and serenity of Labuan’s iconic Chimney Trail 
+      straight to your screen.
+    </p>
+
+    <p id="about-p2">
+      This immersive project transforms traditional hiking into a breathtaking virtual reality experience. 
+      Through realistic 3D environments, 360° panoramas, 
+      spatial soundscapes, and interactive exploration, 
+      you can walk the trail and discover the journey without leaving your home.
+    </p>
+
+    <div class="about-image">
+      <img src="Menara Chimney.jpeg" alt="Labuan Chimney" />
+      <img src="map trail.webp" alt="Labuan Chimney Map" />
+    </div>
+  </section>
+
+  <!-- ===== VR Section ===== -->
+  <section id="vr" class="vr">
+    <h2 id="vr-title">Explore in VR</h2>
+    <p id="vr-desc">
+      Experience the 3D environment of the Chimney Trail in Labuan.  
+      Click the button below to launch the interactive virtual hiking experience!
+    </p>
+    <a href="menu checkpoint.html" class="btn" id="vr-btn">Start Hiking!</a>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section id="contact" class="contact">
+    <h2 id="contact-title">Contact</h2>
+    <p id="contact-desc">For inquiries or collaboration, feel free to reach out :</p>
+    <p><strong>Email:</strong> aina.naimi12@gmail.com</p>
+    <p><strong>Instagram:</strong> @virtualhikevr</p>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p id="footer-text">© 2025 Virtual Labuan Chimney Trail Hiking Experience by VirtAZ</p>
+  </footer>
+
+  <!-- ===== LANGUAGE TOGGLE SCRIPT ===== -->
+  <script>
+    const langToggle = document.getElementById('lang-toggle');
+    let isEnglish = true;
+
+    langToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      if (isEnglish) {
+        // Bahasa Melayu
+        document.getElementById('nav-home').textContent = 'Laman Utama';
+        document.getElementById('nav-about').textContent = 'Tentang';
+        document.getElementById('nav-vr').textContent = 'Pengalaman VR';
+
+        document.getElementById('nav-contact').textContent = 'Hubungi';
+        document.getElementById('hero-title').textContent = 'Pengalaman Mendaki Maya : ';
+        document.getElementById('hero-subtitle').textContent = 'Terokai Laluan Labuan dalam VR';
+        document.getElementById('hero-desc').textContent = 'Langkahkan diri anda ke dunia maya 3D dan alami keindahan serta warisan Laluan Chimney di Labuan melalui pengalaman realiti maya yang mengasyikkan!';
+        document.getElementById('about-title').textContent = 'Tentang Projek';
+        document.getElementById('about-p1').textContent = 'Selami dunia pengembaraan baharu melalui Virtual Hiking Experience: Discover Labuan Chimney Trails in VR. Ia membawa keindahan, sejarah, dan ketenangan Laluan Chimney yang ikonik di Labuan terus ke skrin anda.';
+        document.getElementById('about-p2').textContent = 'Projek ini menukar aktiviti mendaki tradisional menjadi pengalaman realiti maya yang menakjubkan. Dengan persekitaran 3D yang realistik, panorama 360°, bunyi persekitaran spatial dan penerokaan interaktif, anda boleh menjelajah laluan tersebut tanpa meninggalkan rumah.';
+        document.getElementById('vr-title').textContent = 'Terokai dalam VR';
+        document.getElementById('vr-desc').textContent = 'Alami persekitaran 3D Laluan Chimney di Labuan. Klik butang di bawah untuk memulakan pengalaman mendaki maya anda!';
+        document.getElementById('vr-btn').textContent = 'Mula Mendaki!';
+        document.getElementById('contact-title').textContent = 'Hubungi';
+        document.getElementById('contact-desc').textContent = 'Untuk pertanyaan atau kerjasama, sila hubungi:';
+        document.getElementById('footer-text').textContent = '© 2025 Pengalaman Mendaki Maya Laluan Chimney Labuan oleh VirtAZ';
+        langToggle.textContent = 'EN';
+        isEnglish = false;
+      } else {
+        // English
+        document.getElementById('nav-home').textContent = 'Home';
+        document.getElementById('nav-about').textContent = 'About';
+        document.getElementById('nav-vr').textContent = 'VR Experience';
+        document.getElementById('nav-contact').textContent = 'Contact';
+        document.getElementById('hero-title').textContent = 'Virtual Hiking Experience :';
+        document.getElementById('hero-subtitle').textContent = 'Discover Labuan Trails in VR';
+        document.getElementById('hero-desc').textContent = 'Step into the 3D world of Labuan’s Chimney Trail through an immersive VR experience. Explore nature and heritage using VR technology!';
+        document.getElementById('about-title').textContent = 'About Project';
+        document.getElementById('about-p1').textContent = 'Step into a new world of adventure with Virtual Hiking Experience: Discover Labuan Chimney Trails in VR. It is a journey that brings the beauty, history, and serenity of Labuan’s iconic Chimney Trail straight to your screen.';
+        document.getElementById('about-p2').textContent = 'This immersive project transforms traditional hiking into a breathtaking virtual reality experience. Through realistic 3D environments, 360° panoramas, spatial soundscapes, and interactive exploration, you can walk the trail and discover the journey without leaving your home.';
+        document.getElementById('vr-title').textContent = 'Explore in VR';
+        document.getElementById('vr-desc').textContent = 'Experience the 3D environment of the Chimney Trail in Labuan. Click the button below to launch the interactive virtual hiking experience!';
+        document.getElementById('vr-btn').textContent = 'Start Hiking!';
+        document.getElementById('contact-title').textContent = 'Contact';
+        document.getElementById('contact-desc').textContent = 'For inquiries or collaboration, feel free to reach out :';
+        document.getElementById('footer-text').textContent = '© 2025 Virtual Labuan Chimney Trail Hiking Experience by VirtAZ';
+        langToggle.textContent = 'BM';
+        isEnglish = true;
+      }
+    });
+  </script>
+
+</body>
+</html>

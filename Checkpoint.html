@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Checkpoint</title>
+  <link rel="stylesheet" href="menu.css">
+  <style>
+	  #bg-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100vw;
+  max-height: 100vh;
+  width: auto;
+  height: auto;
+  object-fit: cover; /* maintain aspect ratio tanpa crop atau stretch */
+  z-index: -1;
+}
+    .audio-toggle, .lang-toggle {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 8px;
+      z-index: 1000;
+    }
+
+    .audio-toggle {
+      top: 20px;
+      right: 20px;
+    }
+
+    .lang-toggle {
+      top: 20px;
+      right: 120px;
+    }
+
+    .lang-toggle span {
+      cursor: pointer;
+      font-weight: bold;
+      padding: 0 5px;
+    }
+
+    .lang-toggle span.active {
+      text-decoration: underline;
+      color: #00bfff;
+    }
+	.finish-button {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  background-color: #5098ff;  /* warna solid asal */
+  color: white;               /* teks putih */
+  border: 2px solid #00eeff;  /* border cyan neon untuk glow effect */
+  padding: 15px 25px;
+  border-radius: 6px;          /* petak dengan sudut bulat kecil */
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 3000;
+  box-shadow: 0 0 15px rgba(0, 238, 255, 0.8); /* glow lembut */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.finish-button:hover,
+.finish-button:active {
+  transform: translateY(-8px);
+  box-shadow: 0 0 30px rgba(0, 238, 255, 1.5); /* glow lebih terang */
+  background-color: #407fd8; /* warna background gelap sikit masa hover */
+}
+
+
+  </style>
+</head>
+<body>
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="BG CHECKPOINT.MP4" type="video/mp4" />
+  </video>
+  
+  <div class="overlay"></div>
+
+  <!-- Voiceover Audio -->
+  <audio id="voiceover">
+    <source id="voiceSource" src="Select Checkpoint.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Language Switch Button -->
+  <div class="lang-toggle">
+    <span id="lang-en" onclick="switchLanguage('en')">EN</span> | 
+    <span id="lang-bm" onclick="switchLanguage('bm')">BM</span>
+  </div>
+
+  <!-- Mute/Unmute Button -->
+  <button class="audio-toggle" onclick="toggleAudio()">🔊 Mute</button>
+
+	<!-- ===================== FINISH BUTTON ===================== -->
+  <button class="finish-button" id="finishBtn">
+    <i class="fas fa-vr-cardboard"></i> Back
+  </button>
+
+  <!-- Main Menu Content -->
+  <div class="menu">
+    <div class="card">
+      <h2 class="menu-title" id="checkpointTitle">Select Checkpoint</h2>
+      <p class="instruction" id="checkpointSubtitle">Ready to explore? Pick a checkpoint and begin your journey!</p>
+      <div class="image-buttons">
+        <a href="https://youtu.be/KcQLjow7J-k?si=S_-e5T1ma7hJUGvV">
+          <img src="GU.png" alt="Ammunition Store">
+          <p id="ammo">Ammunition Store</p>
+        </a>
+        <a href="Sunrise View.html">
+          <img src="SunriseView.png" alt="Sunrise View">
+          <p id="sunrise">Sunrise View</p>
+        </a>
+        <a href="Raffles Anchorage.html">
+          <img src="RA.png" alt="Raffles Anchorage">
+          <p id="raffles">Raffles Anchorage</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script for Voiceover + Audio + Language -->
+  <script>
+    const audio = document.getElementById('voiceover');
+    const audioSource = document.getElementById('voiceSource');
+    const toggleBtn = document.querySelector('.audio-toggle');
+    let isStopped = false;
+
+    // Start audio on first click
+    window.addEventListener('click', () => {
+      if (audio.paused && !isStopped) {
+        audio.play().catch(() => {});
+      }
+    });
+
+    // Loop voiceover with delay
+    audio.addEventListener('ended', () => {
+      if (!isStopped) {
+        setTimeout(() => {
+          if (!audio.muted) {
+            audio.currentTime = 0;
+            audio.play().catch(() => {});
+          }
+        }, 2000);
+      }
+    });
+
+    function toggleAudio() {
+      audio.muted = !audio.muted;
+      toggleBtn.textContent = audio.muted ? '🔇 Unmute' : '🔊 Mute';
+    }
+
+    // === LANGUAGE HANDLING ===
+    document.addEventListener("DOMContentLoaded", () => {
+      const lang = localStorage.getItem("language") || "en";
+      applyLanguage(lang);
+      updateLangButton(lang);
+    });
+
+    function switchLanguage(lang) {
+      localStorage.setItem("language", lang);
+      applyLanguage(lang);
+      updateLangButton(lang);
+    }
+
+    function updateLangButton(lang) {
+      document.getElementById("lang-en").classList.toggle("active", lang === "en");
+      document.getElementById("lang-bm").classList.toggle("active", lang === "bm");
+    }
+
+    function applyLanguage(lang) {
+      if (lang === "bm") {
+        document.title = "Pilih Checkpoint";
+        document.getElementById("checkpointTitle").innerText = "Pilih Checkpoint";
+        document.getElementById("checkpointSubtitle").innerText = "Sedia untuk meneroka? Pilih checkpoint dan mulakan perjalanan anda!";
+        document.getElementById("ammo").innerText = "Gedung Ubat";
+        document.getElementById("sunrise").innerText = "Pemandangan Matahari Terbit";
+        document.getElementById("raffles").innerText = "Raffles Anchorage";
+        toggleBtn.textContent = audio.muted ? "🔇Bunyi" : "🔊 Senyap";
+
+        // === Tukar Audio ke BM ===
+        audio.pause();
+        audioSource.src = "Select Checkpoint BM.MP3";
+        audio.load();
+        audio.play().catch(() => {});
+
+      } else {
+        document.title = "Select Checkpoint";
+        document.getElementById("checkpointTitle").innerText = "Select Checkpoint";
+        document.getElementById("checkpointSubtitle").innerText = "Ready to explore? Pick a checkpoint and begin your journey!";
+        document.getElementById("ammo").innerText = "Ammunition Store";
+        document.getElementById("sunrise").innerText = "Sunrise View";
+        document.getElementById("raffles").innerText = "Raffles Anchorage";
+        toggleBtn.textContent = audio.muted ? "🔇 Unmute" : "🔊 Mute";
+
+        // === Tukar Audio ke EN ===
+        audio.pause();
+        audioSource.src = "Select Checkpoint.mp3";
+        audio.load();
+        audio.play().catch(() => {});
+      }
+    }
+	   // Finish button click
+    document.getElementById("finishBtn").onclick = () => {
+      window.location.href = "New Homepage.html"
+    };
+
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,118 @@
+/* RESET UTAMA */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: none;
+}
+
+/* WRAPPER UNTUK HALAMAN CHECKPOINT */
+.menu {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* WRAPPER UNTUK HALAMAN UTAMA (jika ada) */
+.homepage {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* dark overlay */
+  z-index: 0;
+}
+
+/* KAD TENGAH */
+.card {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  max-width: 700px;
+  width: 90%;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+/* TAJUK CHECKPOINT */
+h2 {
+  font-size: 2.3em;
+  margin-bottom: 30px;
+  color: #E6E6E6;
+}
+
+.instruction {
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 25px;
+  
+}
+
+.image-buttons {
+  display: flex;
+  flex-direction: row;    /* 👈 horizontal layout */
+  gap: 30px;              /* 👈 space between items */
+  justify-content: center; /* 👈 center all horizontally */
+  flex-wrap: wrap;         /* 👈 allows wrapping on smaller screens */
+}
+
+.image-buttons a {
+  text-align: center;
+  text-decoration: none;
+  color: #E6E6E6;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-buttons img {
+  width: 200px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-buttons a:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.image-buttons p {
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* PADAM GARIS LINK */
+a {
+  text-decoration: none;
+  display: block;
+}

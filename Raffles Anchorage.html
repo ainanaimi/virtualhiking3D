@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Raffles Anchorage - Background Video</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body, html {
+      margin: 0; padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+
+    /* LOADER */
+    #loader {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #5098FF;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* BACKGROUND VIDEO */
+    .video-bg {
+      position: fixed;
+      top: 50%; left: 50%;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      display: none;
+    }
+
+    /* LANGUAGE BUTTON */
+    .lang-toggle {
+      position: absolute;
+      top: 20px; right: 20px;
+      display: flex; gap: 10px;
+      z-index: 5000;
+    }
+
+    .lang-btn {
+      background-color: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .lang-btn.active {
+      background-color: #5098FF;
+      transform: scale(1.05);
+    }
+
+    /* FINISH BUTTON */
+    .finish-button {
+      position: absolute;
+      top: 40px; left: 40px;
+      background-color: #5098FF;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 3000;
+      display: none;
+    }
+
+    /* POPUP */
+    .main-content {
+      position: absolute;
+      top: 38%; right: 40px;
+      transform: translateY(-50%);
+      z-index: 2000;
+      display: none;
+      background: rgba(255,255,255,0.85);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 360px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      transition: opacity 0.5s ease;
+    }
+
+    .main-content.show {
+      display: block;
+      opacity: 1;
+    }
+
+    .popup-box h3 {
+      margin: 0;
+      font-size: 22px;
+      color: #222;
+      text-align: center;
+    }
+
+    .popup-box p {
+      margin: 0;
+      margin-top: 10px;
+      font-size: 16px;
+      color: #444;
+    }
+
+    /* 360 ICON */
+    .video-label {
+      position: absolute;
+      top: 250px;
+      left: 580px;
+      z-index: 2000;
+      display: none;
+    }
+
+    .video-label img {
+      width: 100px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .main-content {
+        right: 20px;
+        top: unset;
+        bottom: 30px;
+        transform: none;
+      }
+
+      .video-label {
+        top: unset;
+        bottom: 100px;
+        left: 20px;
+      }
+    }
+
+
+    /* Finish popup styles */
+    #finishPopup {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.95);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      z-index: 10000;
+      text-align: center;
+    }
+
+    #finishPopup h2 {
+      margin: 0 0 15px 0;
+      font-size: 28px;
+      color: #222;
+    }
+
+    #finishPopup p {
+      font-size: 16px;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    #finishPopup button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background: #5098FF;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <p>Loading virtual scene...</p>
+  </div>
+
+  <!-- VIDEO -->
+  <video class="video-bg" autoplay muted loop playsinline id="bgVideo">
+    <source src="RAFFLES ANCHORAGE.MOV" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- 360 ICON -->
+  <div class="video-label" id="videoLabel">
+    <img src="360-degrees.png" alt="360 Icon" />
+  </div>
+
+  <!-- FINISH BUTTON -->
+  <button class="finish-button" id="finishBtn">
+    <i class="fas fa-vr-cardboard"></i> Finish
+  </button>
+
+  <!-- POPUP -->
+  <div class="main-content" id="mainContent">
+    <div class="popup-box">
+      <h3>Raffles Anchorage</h3>
+      <p>Located near the historical coal mining area, Raffles Anchorage was once a key docking point for ships transporting coal from Labuan during the British colonial period.</p>
+      <p style="font-size: 14px; color: #888;">
+        <em>*This is a temporary 360° video. 3D VR model coming soon.</em>
+      </p>
+    </div>
+  </div>
+
+  <!-- FINISH POPUP -->
+  <div id="finishPopup">
+    <h2>Well Done!</h2>
+    <p>
+      You have completed all the checkpoints and the entire Labuan Chimney Trail!<br><br>
+      Tahniah! Anda telah menamatkan semua checkpoint dan keseluruhan Laluan Cerobong Labuan!
+    </p>
+    <button onclick="closeFinishPopup()">Close</button>
+  </div>
+
+  <!-- LANGUAGE SWITCH -->
+  <div class="lang-toggle">
+    <button class="lang-btn" data-lang="en" onclick="switchLanguage(this)">EN</button>
+    <button class="lang-btn" data-lang="bm" onclick="switchLanguage(this)">BM</button>
+  </div>
+
+  <script>
+    const loader = document.getElementById('loader');
+    const video = document.getElementById('bgVideo');
+    const popup = document.getElementById('mainContent');
+    const finishBtn = document.getElementById('finishBtn');
+    const videoLabel = document.getElementById('videoLabel');
+    const finishPopup = document.getElementById('finishPopup');
+
+    // Hide loader & show video when video ready to play through
+    video.addEventListener('canplaythrough', () => {
+      loader.style.display = 'none';
+      video.style.display = 'block';
+      finishBtn.style.display = 'block';
+      videoLabel.style.display = 'block';
+    });
+
+    // Show popup at 52 seconds
+    video.addEventListener('timeupdate', () => {
+      if (video.currentTime >= 52 && popup.style.display !== 'block') {
+        popup.style.display = 'block';
+      }
+    });
+
+    // Finish button action: show finishPopup instead of redirect
+    finishBtn.onclick = () => {
+      finishPopup.style.display = 'block';
+    };
+
+    // Close finish popup function with redirect to homepage
+    function closeFinishPopup() {
+      finishPopup.style.display = 'none';
+      window.location.href ='New Homepage.html';  // <-- tukar ke link homepage awak
+    }
+
+    // Language switch
+    function switchLanguage(btn) {
+      const lang = btn.dataset.lang;
+      localStorage.setItem("language", lang);
+      applyLanguage(lang);
+
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
+
+    function applyLanguage(lang) {
+      const titleText = document.querySelector(".popup-box h3");
+      const desc1 = document.querySelector(".popup-box p:first-of-type");
+      const desc2 = document.querySelector(".popup-box p:nth-of-type(2)");
+      const loadingText = document.querySelector("#loader p");
+      const finishBtn = document.getElementById('finishBtn');
+      const finishPopupTitle = finishPopup.querySelector('h2');
+      const finishPopupText = finishPopup.querySelector('p');
+      const finishPopupBtn = finishPopup.querySelector('button');
+
+      if (lang === "bm") {
+        document.title = "Raffles Anchorage - Latar Video";
+        titleText.textContent = "Raffles Anchorage";
+        desc1.textContent = "Terletak berdekatan kawasan bersejarah perlombongan arang batu, Raffles Anchorage pernah menjadi titik tambatan penting bagi kapal yang mengangkut arang batu dari Labuan pada zaman penjajahan British.";
+        desc2.innerHTML = "<em>*Ini ialah video 360° sementara. Model VR 3D akan datang tidak lama lagi.</em>";
+        finishBtn.innerHTML = '<i class="fas fa-vr-cardboard"></i> Tamat';
+
+        finishPopupTitle.textContent = "Yahoo!";
+        finishPopupText.innerHTML = "Well done! You have completed all the checkpoints and the entire Labuan Chimney Trail!<br><br>Tahniah! Anda telah menamatkan semua checkpoint dan keseluruhan Laluan Cerobong Labuan!";
+        finishPopupBtn.textContent = "Tutup";
+
+        loadingText.textContent = "Memuatkan pemandangan maya...";
+      } else {
+        document.title = "Raffles Anchorage - Background Video";
+        titleText.textContent = "Raffles Anchorage";
+        desc1.textContent = "Located near the historical coal mining area, Raffles Anchorage was once a key docking point for ships transporting coal from Labuan during the British colonial period.";
+        desc2.innerHTML = "<em>*This is a temporary 360° video. 3D VR model coming soon.</em>";
+        finishBtn.innerHTML = '<i class="fas fa-vr-cardboard"></i> Finish';
+
+        finishPopupTitle.textContent = "Yahoo!";
+        finishPopupText.innerHTML = "Well done! You have completed all the checkpoints and the entire Labuan Chimney Trail!<br><br>Tahniah! Anda telah menamatkan semua checkpoint dan keseluruhan Laluan Cerobong Labuan!";
+        finishPopupBtn.textContent = "Close";
+
+        loadingText.textContent = "Loading virtual scene...";
+      }
+    }
+
+    // Initialize language on page load
+    document.addEventListener("DOMContentLoaded", () => {
+      const lang = localStorage.getItem("language") || "en";
+      const btn = document.querySelector(`.lang-btn[data-lang="${lang}"]`);
+      if (btn) btn.classList.add("active");
+      applyLanguage(lang);
+    });
+  </script>
+</body>
+</html>

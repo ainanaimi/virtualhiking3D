@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: none; /* remove body background if using section background */
+  background-image: url('trail image.jpg');
+}
+
+.section {
+  text-align: center;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+  z-index: 1;
+}
+
+h1 {
+  font-size: 36px; /* Besar */
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-size: 24px; /* Besar sedikit */
+  margin-bottom: 30px;
+}
+
+button {
+  background: linear-gradient(135deg, #9fc8a2, #d9ffdc);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 30px;
+  margin: 15px 0;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 80%;
+  max-width: 320px;
+  box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 114, 255, 0.6);
+}
+
+a {
+  text-decoration: none;
+  display: block;
+}
+
+/* Homepage Background */
+.homepage {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+

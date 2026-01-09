@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Virtual Hiking Experience</title>
+  <link rel="stylesheet" href="CSS VR.css" />
+  <style>
+    .audio-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 8px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Section with Video -->
+  <div class="hero-section">
+    <video autoplay muted loop id="bg-video">
+      <source src="3D cartoon.mp4" type="video/mp4" />
+    </video>
+
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <div class="content">
+      <h1>Virtual Hiking Experience :<br>Discover Labuan Trails in VR</h1>
+      <p class="subtitle">
+        Step into the 3D world of Labuan’s Chimney Trail through an immersive virtual hiking experience. 
+        Explore nature and heritage using VR technology!
+        <br> No hiking boots needed!
+      </p>
+
+      <!-- Start Button -->
+      <a href="checkpoint.html" class="start-button" onclick="stopVoiceover()">
+        <img src="play.png" alt="Start" class="start-icon">
+      </a>
+    </div>
+  </div>
+
+  <!-- Voiceover Audio (no loop tag) -->
+  <audio id="voiceover">
+    <source src="Click Start.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Mute/Unmute Button -->
+  <button class="audio-toggle" onclick="toggleAudio()">🔊 Mute</button>
+
+  <!-- Script -->
+  <script>
+    const audio = document.getElementById('voiceover');
+    const toggleBtn = document.querySelector('.audio-toggle');
+    let isStopped = false;
+
+    // Start the audio on first interaction (for autoplay policy)
+    window.addEventListener('click', () => {
+      if (audio.paused && !isStopped) {
+        audio.play().catch(() => {});
+      }
+    });
+
+    // Replay after audio ends with a 5-second delay
+    audio.addEventListener('ended', () => {
+      if (!isStopped) {
+        setTimeout(() => {
+          if (!audio.muted) {
+            audio.currentTime = 0;
+            audio.play().catch(() => {});
+          }
+        }, 2000); // 2000ms = 2 seconds
+      }
+    });
+
+    function toggleAudio() {
+      audio.muted = !audio.muted;
+      toggleBtn.textContent = audio.muted ? '🔇 Unmute' : '🔊 Mute';
+    }
+
+    function stopVoiceover() {
+      isStopped = true;
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  </script>
+</body>
+</html>
+
